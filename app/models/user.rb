@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
+ #include diffrent classes to use their methods
   include BCrypt
   include Scrubber
+ 
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
   attr_accessor :password
   

@@ -1,8 +1,11 @@
 Socialbeam::Application.routes.draw do
  
 
+  resources :newsfeeds
+
+
   resources :scribbles
-  resources :users do |users|
+  resources :users do |user|
     resources :messages do
       collection do
         post 'delete_multiple'
@@ -10,6 +13,7 @@ Socialbeam::Application.routes.draw do
     end
   end
   resources :sessions
+  resources :newsfeeds
 
   root :to => 'browse#home'
 
