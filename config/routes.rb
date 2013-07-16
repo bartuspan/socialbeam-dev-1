@@ -1,10 +1,7 @@
 Socialbeam::Application.routes.draw do
  
 
-  resources :newsfeeds
-
-
-  resources :scribbles
+ 
   resources :users do |user|
     resources :messages do
       collection do
@@ -12,10 +9,17 @@ Socialbeam::Application.routes.draw do
       end
     end
   end
+  resource :socialbeams do
+    collection do
+        get 'home'
+        get 'loadmorescribbles'
+      end
+  end
   resources :sessions
   resources :newsfeeds
+  resources :scribbles
 
-  root :to => 'browse#home'
+  root :to => 'socialbeams#home'
 
   get "browse/profile"
 
@@ -32,9 +36,9 @@ Socialbeam::Application.routes.draw do
 
  
  #for voting/like
-  get  "refresh"  => "browse#refreshscribbles", :as => "refresh"
-  get "votedup"  => "browse#votedup", :as => "votedup"
-  get  "voteddown"  => "browse#voteddown", :as => "voteddown"
+  get  "refresh"  => "socialbeams#refreshscribbles", :as => "refresh"
+  get "votedup"  => "socialbeams#votedup", :as => "votedup"
+  get  "voteddown"  => "socialbeams#voteddown", :as => "voteddown"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

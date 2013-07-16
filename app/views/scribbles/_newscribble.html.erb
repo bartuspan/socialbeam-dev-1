@@ -1,9 +1,8 @@
 <%= form_for(@scribble) do |f| %>
-<div class="field">
-    <%= f.label :post %><br />
-    <%= f.text_field :post %>
-  </div>
-<div class="actions" id="refreshscribbles">
-    <%= f.submit("Scribble it") %>
-  </div>
+	<div class="field">
+	    <%= f.text_field :post %>
+	 </div>
+	<div class="actions" id="refreshscribbles">
+	    <%= f.submit("Scribble it") %>
+	</div>
 <% end %>
