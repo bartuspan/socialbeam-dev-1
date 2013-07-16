@@ -21,12 +21,6 @@ Socialbeam::Application.routes.draw do
 
   root :to => 'socialbeams#home'
 
-  get "browse/profile"
-
-  get "browse/message"
-
-  get "browse/about"
-
   #Sessions Users
   get "logout_user" => "sessions#destroy", :as => "logout_user"
   post "login_user" => "sessions#new", :as => "login_user"
