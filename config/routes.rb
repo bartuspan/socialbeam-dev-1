@@ -2,7 +2,13 @@ Socialbeam::Application.routes.draw do
  
 
   resources :scribbles
-  resources :users
+  resources :users do |users|
+    resources :messages do
+      collection do
+        post 'delete_multiple'
+      end
+    end
+  end
   resources :sessions
 
   root :to => 'browse#home'
