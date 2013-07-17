@@ -1,0 +1,10 @@
+
+<div id="Comment-<%= scribble.scribble_id %>">
+    <%= form_for([scribble, scribble.posted_comments.build]) do |f| %>
+	    <%= f.text_field :body %>
+	    <%= hidden_field_tag :scribble_id_val, scribble.scribble_id %>
+	    <%= hidden_field_tag :commentor_id_val,current_user.beamer_id %>
+	  
+	    <%= f.submit "Add", :class => "btn btn-info mybtn" %>
+    <% end %>
+</div>

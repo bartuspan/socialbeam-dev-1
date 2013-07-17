@@ -4,6 +4,15 @@ module Scrubber
 		Array.new(size){rand(10)}.join.to_i
 	end
 
+    #Generate Scribble_ID
+    def gen_scribble_id
+        begin
+            random_id=random_number(11)
+            scribble_id=("Scribble-" + "#{random_id}")
+        end while Scribble.exists?(:scribble_id =>scribble_id)
+        return scribble_id
+    end 
+
     #Generate Beamer_ID
     def gen_beamer_id
     	begin

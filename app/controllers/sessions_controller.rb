@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
     redirect_to root_url
   else
     session[:user_id] = nil
+    flash[:error] = "Please enter correct email and password"
     render :action => "new"
-    flash[:notice] = "Wrong email or password"
   end
   end
 
@@ -15,4 +15,5 @@ class SessionsController < ApplicationController
   session[:user_id] = nil
   redirect_to root_url
   end
+
 end

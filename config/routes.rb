@@ -1,7 +1,6 @@
 Socialbeam::Application.routes.draw do
  
 
- 
   resources :users do |user|
     resources :messages do
       collection do
@@ -15,7 +14,9 @@ Socialbeam::Application.routes.draw do
         get 'loadmorescribbles'
       end
   end
-  resources :sessions
+  resources :scribbles do
+      resources :scribble_comments
+  end
   resources :newsfeeds
   resources :scribbles
 

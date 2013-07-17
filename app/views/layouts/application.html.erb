@@ -9,6 +9,7 @@
    ================================================== -->
    <%= javascript_include_tag :jquery %>
    <%= javascript_include_tag :bootstrap %>
+   <%= javascript_include_tag :modernizer %>
    <!-- stylesheets
    ================================================== -->
    <%= stylesheet_link_tag    "application" %>
@@ -36,19 +37,20 @@
     <!-- End of Log In Modal -->
 
     <!-- Sign Up Modal -->
-    <div class="modal hide fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--    <div class="modal hide fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Create an Account</h3>
       </div>
       <div class="modal-body">
-        <% @user = User.new %>
-        <%= render "/users/new.html.erb"%>
+        <%# @user = User.new %>
+        <%#= render "/users/new.html.erb"%>
       </div>
       <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
-    </div>
+    </div> -->
+    <%#= render :partial => "layouts/signup" %>
     <!-- End of Sign Up Modal -->
 
 
@@ -61,7 +63,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="<%= root_url %>">Socialbeam</a>
+          <a class="brand" href="<%= root_url %>">
++          <%= image_tag("sb_large.png", :class => "brandimage")%>
++        </a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="<%= root_url %>"><i class="icon-home"></i>Home</a></li>
@@ -115,14 +119,16 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="#">Socialbeam</a>
+        <a class="brand" href="<%= root_url %>">
++          <%= image_tag("sb_large.png", :class => "brandimage")%>
++        </a>
 
         <div class="nav-collapse">
 
           <ul class="nav pull-right">
-            <li><button class="btn" id="loginclick">Sign In</button></li>
+            <button class="btn btn-info" id="loginclick"><i class="icon-beer"></i> Sign In</button>
             <li class="divider-vertical"></li>
-            <li><button class="btn" id="signupclick">Join Socialbeam</button></li>
+            <a class="btn btn-info" href="<%= new_user_path %>"><i class="icon-coffee"></i> Join Socialbeam</a>
             <li class="divider-vertical"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Why Join Socialbeam?<b class="caret"></b></a>
@@ -160,8 +166,8 @@
 $('#loginclick').click(function(){
   $('#login').modal('show')
 });
-$('#signupclick').click(function(){
+/*$('#signupclick').click(function(){
   $('#signup').modal('show')
-});
+});*/
 </script>
 </html>
