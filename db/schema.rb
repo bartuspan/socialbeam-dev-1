@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130716115919) do
+ActiveRecord::Schema.define(:version => 20130717105241) do
+
+  create_table "friendships", :force => true do |t|
+    t.string   "beamer_id"
+    t.string   "friend_beamer_id"
+    t.string   "requested_id"
+    t.string   "status"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "messages", :force => true do |t|
     t.string   "sender_id",                              :null => false

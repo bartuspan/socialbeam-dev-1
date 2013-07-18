@@ -1,5 +1,5 @@
 Socialbeam::Application.routes.draw do
- 
+
 
   resources :users do |user|
     resources :messages do
@@ -7,6 +7,7 @@ Socialbeam::Application.routes.draw do
         post 'delete_multiple'
       end
     end
+#    resources :friends
   end
   resource :socialbeams do
     collection do
@@ -18,16 +19,12 @@ Socialbeam::Application.routes.draw do
       resources :scribble_comments
   end
   resources :newsfeeds
-  resources :scribbles
-
+  resources :sessions
   root :to => 'socialbeams#home'
 
   #Sessions Users
   get "logout_user" => "sessions#destroy", :as => "logout_user"
   post "login_user" => "sessions#new", :as => "login_user"
-
-  #Users
-  get "signup" => "users#new", :as => "signup"
 
  
  #for voting/like
@@ -35,6 +32,24 @@ Socialbeam::Application.routes.draw do
   get "votedup"  => "socialbeams#votedup", :as => "votedup"
   get  "voteddown"  => "socialbeams#voteddown", :as => "voteddown"
 
+
+  #Users
+  get "signup" => "users#new", :as => "signup"
+  match "myconnections/:beamer_id" => "users#showconnections", :as => "myconnections"
+  match "users/:beamer_id" => "users#show" , :as => 'profile'
+#  match "users/:beamer_id/friend_request" => "friends#create" , :as => 'friend_request'
+#  match "users/:beamer_id/reject_friend_request" => "friends#destroy" , :as => 'reject_friend_request'
+
+  resources :friendships do
+    collection do
+      get 'req',:as=>"addfriend"
+      get 'accept',:as=>"accept_fr"
+      get 'reject',:as=>"reject_fr"
+    end
+  end
+  #match "friendships/:beamer_id" => "friendships#req", :as=>"addfriend"
+  #match "friendships/:beamer_id" => "friendships#accept", :as=>"accept_fr"
+  #match "friendships/:beamer_id" => "friendships#reject", :as=>"reject_fr"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,11 +1,8 @@
 class User < ActiveRecord::Base
- #include diffrent classes to use their methods
   include BCrypt
   include Scrubber
- 
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation
   attr_accessor :password
-  
   before_save :encrypt_password
   before_save :create_unique_profile_id
   before_save :create_beamer_id
@@ -24,6 +21,24 @@ class User < ActiveRecord::Base
   :order => "messages.created_at DESC",
   :conditions => ["messages.recepient_deleted = ?", false]
 
+  # friendships
+  has_many :friendship,:primary_key=>"beamer_id",:foreign_key=>'beamer_id'
+  has_many :friends, 
+           :through => :friendship,
+           :conditions => "status = 'accepted'", 
+           :order => :first_name
+
+  has_many :requested_friends, 
+           :through => :friendship, 
+           :source => :friend,
+           :conditions => "status = 'requested'", 
+           :order => :created_at
+
+  has_many :pending_friends, 
+           :through => :friendship, 
+           :source => :friend,
+           :conditions => "status = 'pending'", 
+           :order => :created_at
 
   validates_confirmation_of :password , :message => "Passwords donot match."
   validates_presence_of :password, :message => "Please Enter a Password"
@@ -56,6 +71,10 @@ class User < ActiveRecord::Base
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
+  #Return Full Name Helper Method
+  def full_name
+    return "#{self.first_name} #{self.last_name}"
+  end
 
   def unread_messages?
     unread_message_count > 0 ? true : false
@@ -64,5 +83,5 @@ class User < ActiveRecord::Base
   # Returns the number of unread messages for this user
   def unread_message_count
     eval 'messages.count(:conditions => ["recepient_id = ? AND read_at IS NULL", self.beamer_id])'
-  end      
+  end
 end

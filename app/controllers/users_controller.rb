@@ -15,4 +15,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+      @user = User.find_by_beamer_id(params[:id])
+  end
+
+  def showconnections
+    flash[:notice]
+    @user = User.find_by_beamer_id(params[:beamer_id])
+    @all_connections=User.all
+  end
+
 end
